@@ -10,7 +10,6 @@ int main() {
     cout.tie(NULL);
     
     int N, K;
-    
     queue<int> q;
     string cmd;
     
