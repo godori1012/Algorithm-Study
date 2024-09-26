@@ -1,40 +1,44 @@
 #include <iostream>
-#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-bool canEat(int start, int end, string& hamburger) {
-    for (int j = start; j <= end; j++) {
-        if (j >= 0 && j < hamburger.length() && hamburger[j] == 'H') {
-            hamburger[j] = 'E'; // 먹은 햄버거를 E로 표시
-            return true;
-        }
-    }
-    return false;
+bool canEat(int start, int end, string& pos){
+	for(int i=start; i<=end; i++){
+	    if(i>=0 && i<pos.length()&& pos[i]=='H'){
+	        pos[i]='E';
+	        return true;
+	    }
+	}
+	return false;
 }
 
-int solution(int n, int k, string hamburger) {
-    int ans = 0;
-    for (int i = 0; i < hamburger.length(); i++) {
-        if (hamburger[i] != 'P') { // 사람이 아니라면 패스
-            continue;
-        }
-        // 먼저 왼쪽에서부터 햄버거를 먹을 수 있는지 확인
-        if (canEat(i - k, i - 1, hamburger)) {
-            ans++;
-        } else if (canEat(i + 1, i + k, hamburger)) {  // 오른쪽에서 먹을 수 있는지 확인
-            ans++;
-        }
-    }
-    return ans;
+int solution(int num, int k, string pos){
+	int ans=0;
+	
+	for(int i=0; i<pos.length(); i++){
+		if(pos[i]!='P'){
+			continue;
+		}
+		if(canEat(i-k,i-1,pos)){
+			ans++;
+		} else if (canEat(i+1, i+k, pos)){
+			ans++;
+		}
+	}
+	
+	return ans;
 }
 
-int main() {
-    int n, k;
-    cin >> n >> k;
-    string hamburger;
-    cin >> hamburger;
-
-    cout << solution(n, k, hamburger);
-    return 0;
+int main(){
+	int num, k;
+	cin >> num >> k;
+	
+	string pos;
+	cin >> pos;
+	
+	cout << solution(num, k, pos);
+	
+	return 0;
 }
